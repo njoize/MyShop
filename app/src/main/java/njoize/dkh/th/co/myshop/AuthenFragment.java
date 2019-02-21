@@ -1,7 +1,9 @@
 package njoize.dkh.th.co.myshop;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -41,6 +44,28 @@ public class AuthenFragment extends Fragment {
 
 
     } // Main Method
+
+    // Method onResume() จะทำงานเป็นอย่างแรก
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MyConstant myConstant = new MyConstant();
+
+        SharedPreferences sharedPreferences = getActivity()
+                .getSharedPreferences(myConstant.getSharePreferFileUserLogin(), Context.MODE_PRIVATE);
+        boolean b = sharedPreferences.getBoolean("Remember", false);
+        String jsonString = sharedPreferences.getString("JSON", "");
+
+
+        if (b && (jsonString.length() != 0)) {
+            Intent intent = new Intent(getActivity(), ServiceActivity.class);
+            intent.putExtra("a_name", jsonString);
+            startActivity(intent);
+            getActivity().finish();
+        }
+
+    }
 
     private void loginController() {
         Button button = getView().findViewById(R.id.btnLogin);
@@ -79,10 +104,34 @@ public class AuthenFragment extends Fragment {
                             JSONArray jsonArray = new JSONArray(resultJson);
                             JSONObject jsonObject = jsonArray.getJSONObject(0); // ฐานข้อมูล row แรก
 
+
+                            String firstnameString = jsonObject.getString("a_firstname");
+                            String nameString = jsonObject.getString("a_name");
+                            String userCatString = jsonObject.getString("a_cat");
+
                             String truePassword = jsonObject.getString("a_password");
                             Log.d("AuthenFragment", "truePassword ==> " + truePassword);
 
                             if (checkPassword(passwordString, jsonObject.getString("a_password"))) {
+
+                                CheckBox checkBox = getView().findViewById(R.id.chbRememberMe);
+
+
+
+                                SharedPreferences sharedPreferences = getActivity()
+                                        .getSharedPreferences(myConstant.getSharePreferFileUserLogin(), Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("Username", usernameString);
+                                editor.putString("Firstname", firstnameString);
+                                editor.putString("Name", nameString);
+                                editor.putString("UserCat", userCatString);
+                                editor.putBoolean("Remember", checkBox.isChecked());
+                                editor.putString("JSON", resultJson);
+
+                                editor.commit();
+
+
+
                                 Intent intent = new Intent(getActivity(), ServiceActivity.class);
                                 intent.putExtra("a_username", resultJson);
                                 startActivity(intent);
