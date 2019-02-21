@@ -60,7 +60,7 @@ public class AuthenFragment extends Fragment {
 
         if (b && (jsonString.length() != 0)) {
             Intent intent = new Intent(getActivity(), ServiceActivity.class);
-            intent.putExtra("a_name", jsonString);
+            intent.putExtra("a_username", jsonString);
             startActivity(intent);
             getActivity().finish();
         }
