@@ -33,6 +33,15 @@ public class ServiceActivity extends AppCompatActivity {
 //        Create Toolbar
         createToolbar();
 
+//        Add Fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.contentServiceFragment, new ServicesFragment())
+                    .commit();
+        }
+
+
     } // Main Method
 
     @Override
