@@ -52,9 +52,10 @@ public class ServicesFragment extends Fragment {
     private void createTabLayout() {
         tabLayout = getView().findViewById(R.id.tabLayout);
         String[] strings = myConstant.getTitleTabStrings();
+        int[] iconInts = myConstant.getIconTitleTabInts();
 
-        for (String myString : strings) {
-            tabLayout.addTab(tabLayout.newTab().setText(myString));
+        for (int i = 0; i < strings.length; i += 1) {
+            tabLayout.addTab(tabLayout.newTab().setText(strings[i]).setIcon(iconInts[i]));
         }
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL); // Center Title name of each Tab
 
