@@ -19,17 +19,20 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             detailLine1StringArrayList,
             detailLine2StringArrayList;
     private LayoutInflater layoutInflater;
+    private OnClickItem onClickItem;
 
     public BillRecyclerViewAdapter(Context context,
                                    ArrayList<String> channelStringArrayList,
                                    ArrayList<String> methodStringArrayList,
                                    ArrayList<String> detailLine1StringArrayList,
-                                   ArrayList<String> detailLine2StringArrayList) {
+                                   ArrayList<String> detailLine2StringArrayList,
+                                   OnClickItem onClickItem) {
         this.layoutInflater = LayoutInflater.from(context);
         this.channelStringArrayList = channelStringArrayList;
         this.methodStringArrayList = methodStringArrayList;
         this.detailLine1StringArrayList = detailLine1StringArrayList;
         this.detailLine2StringArrayList = detailLine2StringArrayList;
+        this.onClickItem = onClickItem;
     } // Constructor
 
     @NonNull
@@ -43,7 +46,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BillViewHolder billViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final BillViewHolder billViewHolder, int i) {
 
         String channelString = channelStringArrayList.get(i);
         String methodString = methodStringArrayList.get(i);
@@ -54,6 +57,13 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         billViewHolder.methodTextView.setText( methodString);
         billViewHolder.detailLine1TextView.setText(detailLine1String);
         billViewHolder.detailLine2TextView.setText(detailLine2String);
+
+        billViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickItem.onClickItem(v, billViewHolder.getAdapterPosition());
+            }
+        });
 
     }
 
