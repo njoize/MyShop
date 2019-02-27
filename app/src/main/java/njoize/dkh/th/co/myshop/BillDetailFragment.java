@@ -17,7 +17,7 @@ public class BillDetailFragment extends Fragment {
 
     private String idBillString;
     private String tag = "BillDetailFragment";
-
+    private MyConstant myConstant = new MyConstant();
 
     public BillDetailFragment() {
         // Required empty public constructor
@@ -36,6 +36,31 @@ public class BillDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Get RID
+        getRID();
+
+//        Create Detail
+        createDetail();
+
+
+
+    } // Main Method
+
+    private void createDetail() {
+        try {
+
+            GetBillDetail getBillDetail = new GetBillDetail(getActivity());
+            getBillDetail.execute(idBillString, myConstant.getUrlGetReceipts());
+            String jsonString = getBillDetail.get();
+            Log.d(tag, jsonString);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(tag, "e at createDetail ==> " + e.toString());
+        }
+    }
+
+    private void getRID() {
         idBillString = getArguments().getString("idBill");
         Log.d(tag, "idBill ==> " + idBillString);
     }
