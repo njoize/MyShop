@@ -15,19 +15,32 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Bi
 
     private Context context;
     private ArrayList<String> nameStringArrayList,
-            detailStringArrayList,
+            pdetailStringArrayList,
+            rdetailStringArrayList,
             weightStringArrayList,
             amountStringArrayList,
-            priceStringArrayList;
+            priceStringArrayList,
+            discountStringArrayList,
+            sumStringArrayList;
     private LayoutInflater layoutInflater;
 
-    public BillDetailAdapter(Context context, ArrayList<String> nameStringArrayList, ArrayList<String> detailStringArrayList, ArrayList<String> weightStringArrayList, ArrayList<String> amountStringArrayList, ArrayList<String> priceStringArrayList) {
+    public BillDetailAdapter(Context context, ArrayList<String> nameStringArrayList,
+                             ArrayList<String> pdetailStringArrayList,
+                             ArrayList<String> rdetailStringArrayList,
+                             ArrayList<String> weightStringArrayList,
+                             ArrayList<String> amountStringArrayList,
+                             ArrayList<String> priceStringArrayList,
+                             ArrayList<String> discountStringArrayList,
+                             ArrayList<String> sumStringArrayList) {
         this.layoutInflater = LayoutInflater.from(context);
         this.nameStringArrayList = nameStringArrayList;
-        this.detailStringArrayList = detailStringArrayList;
+        this.pdetailStringArrayList = pdetailStringArrayList;
+        this.rdetailStringArrayList = rdetailStringArrayList;
         this.weightStringArrayList = weightStringArrayList;
         this.amountStringArrayList = amountStringArrayList;
         this.priceStringArrayList = priceStringArrayList;
+        this.discountStringArrayList = discountStringArrayList;
+        this.sumStringArrayList = sumStringArrayList;
     }
 
     @NonNull
@@ -44,16 +57,22 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Bi
     public void onBindViewHolder(@NonNull BillDetailViewHolder billDetailViewHolder, int i) {
 
         String nameString = nameStringArrayList.get(i);
-        String detailString = detailStringArrayList.get(i);
+        String pdetailString = pdetailStringArrayList.get(i);
+        String rdetailString = rdetailStringArrayList.get(i);
         String weightString = weightStringArrayList.get(i);
         String amountString = amountStringArrayList.get(i);
         String priceString = priceStringArrayList.get(i);
+        String discountString = discountStringArrayList.get(i);
+        String sumString = sumStringArrayList.get(i);
 
         billDetailViewHolder.nameTextView.setText(nameString);
-        billDetailViewHolder.detailTextView.setText(detailString);
+        billDetailViewHolder.pdetailTextView.setText(pdetailString);
+        billDetailViewHolder.rdetailTextView.setText(rdetailString);
         billDetailViewHolder.weightTextView.setText(weightString);
         billDetailViewHolder.amountTextView.setText(amountString);
         billDetailViewHolder.priceTextView.setText(priceString);
+        billDetailViewHolder.discountTextView.setText(discountString);
+        billDetailViewHolder.sumTextView.setText(sumString);
 
     }
 
@@ -64,17 +83,27 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Bi
 
     class BillDetailViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nameTextView, detailTextView, weightTextView, amountTextView, priceTextView;
+        private TextView nameTextView,
+                pdetailTextView,
+                rdetailTextView,
+                weightTextView,
+                amountTextView,
+                priceTextView,
+                discountTextView,
+                sumTextView;
 
 
         public BillDetailViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.txtName);
-            detailTextView = itemView.findViewById(R.id.txtDetail);
+            pdetailTextView = itemView.findViewById(R.id.txtPDetail);
+            rdetailTextView = itemView.findViewById(R.id.txtRDetail);
             weightTextView = itemView.findViewById(R.id.txtWeight);
             amountTextView = itemView.findViewById(R.id.txtAmount);
             priceTextView = itemView.findViewById(R.id.txtPrice);
+            discountTextView = itemView.findViewById(R.id.txtDiscount);
+            sumTextView = itemView.findViewById(R.id.txtSum);
         }
     } // BillDetailViewHolder Class
 

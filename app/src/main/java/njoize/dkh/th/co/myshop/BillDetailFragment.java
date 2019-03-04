@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -59,10 +60,13 @@ public class BillDetailFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         ArrayList<String> nameStringArrayList = new ArrayList<>();
-        ArrayList<String> detailStringArrayList = new ArrayList<>();
+        ArrayList<String> pdetailStringArrayList = new ArrayList<>();
+        ArrayList<String> rdetailStringArrayList = new ArrayList<>();
         ArrayList<String> weightStringArrayList = new ArrayList<>();
         ArrayList<String> amountStringArrayList = new ArrayList<>();
         ArrayList<String> priceStringArrayList = new ArrayList<>();
+        ArrayList<String>  discountStringArrayList = new ArrayList<>();
+        ArrayList<String>  sumStringArrayList = new ArrayList<>();
 
         try {
 
@@ -74,16 +78,34 @@ public class BillDetailFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0; i < jsonArray.length(); i += 1) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                nameStringArrayList.add(jsonObject.getString("p_id"));
-                detailStringArrayList.add(jsonObject.getString("rd_detail"));
-                weightStringArrayList.add(jsonObject.getString("pl_id"));
-                amountStringArrayList.add(jsonObject.getString("rd_quantity"));
-                priceStringArrayList.add(jsonObject.getString("rd_price"));
+                nameStringArrayList.add(jsonObject.getString("name"));
+                pdetailStringArrayList.add(jsonObject.getString("pdetail"));
+                rdetailStringArrayList.add(jsonObject.getString("rdetail"));
+                weightStringArrayList.add(jsonObject.getString("weight"));
+                amountStringArrayList.add(jsonObject.getString("quantity"));
+                priceStringArrayList.add(jsonObject.getString("price"));
+                discountStringArrayList.add(jsonObject.getString("discount"));
+                sumStringArrayList.add(jsonObject.getString("sum"));
+
             }
 
             BillDetailAdapter billDetailAdapter = new BillDetailAdapter(getActivity(), nameStringArrayList,
-                    detailStringArrayList, weightStringArrayList, amountStringArrayList, priceStringArrayList);
+                    pdetailStringArrayList,
+                    rdetailStringArrayList,
+                    weightStringArrayList,
+                    amountStringArrayList,
+                    priceStringArrayList,
+                    discountStringArrayList,
+                    sumStringArrayList);
             recyclerView.setAdapter(billDetailAdapter);
+
+            double total = 0;
+            for (String s : sumStringArrayList) {
+                total = total + Double.parseDouble(s.trim());
+            }
+
+            TextView textView = getView().findViewById(R.id.txtTotal);
+            textView.setText("รวมทั้งสิ้น " + Double.toString(total).format("%.2f", total) + " บาท");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -15,15 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text"
-            android:textSize="@dimen/h2"
+            android:textSize="@dimen/h3"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtDetail"
+            android:id="@+id/txtPDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text"
-            android:textSize="@dimen/h2"
+            android:textSize="@dimen/h3"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtRDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:textSize="@dimen/h3"
             android:textStyle="italic" />
 
         <TextView
@@ -31,17 +39,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
+
+        <TextView
+            android:id="@+id/txtDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:textSize="@dimen/h3" />
+
+        <TextView
+            android:id="@+id/txtSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

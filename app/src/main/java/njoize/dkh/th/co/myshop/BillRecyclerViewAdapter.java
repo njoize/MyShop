@@ -17,7 +17,8 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             channelStringArrayList,
             methodStringArrayList,
             detailLine1StringArrayList,
-            detailLine2StringArrayList;
+            detailLine2StringArrayList,
+            detailLine3StringArrayList;
     private LayoutInflater layoutInflater;
     private OnClickItem onClickItem;
 
@@ -26,12 +27,14 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
                                    ArrayList<String> methodStringArrayList,
                                    ArrayList<String> detailLine1StringArrayList,
                                    ArrayList<String> detailLine2StringArrayList,
+                                   ArrayList<String> detailLine3StringArrayList,
                                    OnClickItem onClickItem) {
         this.layoutInflater = LayoutInflater.from(context);
         this.channelStringArrayList = channelStringArrayList;
         this.methodStringArrayList = methodStringArrayList;
         this.detailLine1StringArrayList = detailLine1StringArrayList;
         this.detailLine2StringArrayList = detailLine2StringArrayList;
+        this.detailLine3StringArrayList = detailLine3StringArrayList;
         this.onClickItem = onClickItem;
     } // Constructor
 
@@ -52,11 +55,13 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         String methodString = methodStringArrayList.get(i);
         String detailLine1String = detailLine1StringArrayList.get(i);
         String detailLine2String = detailLine2StringArrayList.get(i);
+        String detailLine3String = detailLine3StringArrayList.get(i);
 
         billViewHolder.channelTextView.setText(channelString);
         billViewHolder.methodTextView.setText( methodString);
         billViewHolder.detailLine1TextView.setText(detailLine1String);
         billViewHolder.detailLine2TextView.setText(detailLine2String);
+        billViewHolder.detailLine3TextView.setText(detailLine3String);
 
         billViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +82,8 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         private TextView channelTextView,
                 methodTextView,
                 detailLine1TextView,
-                detailLine2TextView;
+                detailLine2TextView,
+                detailLine3TextView;
 
 
         public BillViewHolder(@NonNull View itemView) {
@@ -87,6 +93,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             methodTextView = itemView.findViewById(R.id.txtMethod);
             detailLine1TextView = itemView.findViewById(R.id.txtDetail1);
             detailLine2TextView = itemView.findViewById(R.id.txtDetail2);
+            detailLine3TextView = itemView.findViewById(R.id.txtDetail3);
 
         }
     } // BillViewHolder Class
