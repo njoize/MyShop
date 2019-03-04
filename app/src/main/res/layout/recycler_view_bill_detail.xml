@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -14,7 +15,7 @@
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
+            android:text="Name"
             android:textSize="@dimen/h3"
             android:textStyle="bold" />
 
@@ -22,44 +23,40 @@
             android:id="@+id/txtPDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
+            android:text="PDetail"
             android:textSize="@dimen/h3"
-            android:textStyle="bold" />
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/txtRDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
-            android:textSize="@dimen/h3"
-            android:textStyle="italic" />
+            android:textSize="@dimen/h3"/>
 
         <TextView
             android:id="@+id/txtWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
             android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
+            android:text="Amount"
             android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtDiscount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
             android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
+            android:text="Price"
             android:textSize="@dimen/h3" />
 
         <TextView
@@ -67,10 +64,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="Text"
+            android:text="Sum"
             android:textSize="@dimen/h2"
             android:textStyle="bold" />
 
     </LinearLayout>
+
+
+    <View
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
 
 </LinearLayout>

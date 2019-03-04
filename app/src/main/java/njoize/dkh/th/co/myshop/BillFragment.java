@@ -50,11 +50,12 @@ public class BillFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<String> channelStringArrayList = new ArrayList<>();
-        ArrayList<String> methodStringArrayList = new ArrayList<>();
-        ArrayList<String> detailLine1StringArrayList = new ArrayList<>();
-        ArrayList<String> detailLine2StringArrayList = new ArrayList<>();
-        ArrayList<String> detailLine3StringArrayList = new ArrayList<>();
+        final ArrayList<String> channelStringArrayList = new ArrayList<>();
+        final ArrayList<String> methodStringArrayList = new ArrayList<>();
+        final ArrayList<String> detailLine1StringArrayList = new ArrayList<>();
+        final ArrayList<String> detailLine2StringArrayList = new ArrayList<>();
+        final ArrayList<String> detailLine3StringArrayList = new ArrayList<>();
+        final ArrayList<String> totalPriceStringArrayList = new ArrayList<>();
         final ArrayList<String> idBillStringArrayList = new ArrayList<>();
 
 
@@ -70,9 +71,10 @@ public class BillFragment extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 channelStringArrayList.add(jsonObject.getString("channel"));
                 methodStringArrayList.add(jsonObject.getString("method"));
-                detailLine1StringArrayList.add(jsonObject.getString("r_no") + " " + jsonObject.getString("cname") + " " + jsonObject.getString("TotalPrice") + " บาท");
+                detailLine1StringArrayList.add(jsonObject.getString("r_no") + " " + jsonObject.getString("cname"));
                 detailLine2StringArrayList.add(jsonObject.getString("r_date") + " ผู้ขาย: " + jsonObject.getString("r_sales"));
                 detailLine3StringArrayList.add(jsonObject.getString("r_remark"));
+                totalPriceStringArrayList.add(jsonObject.getString("TotalPrice"));
                 idBillStringArrayList.add(jsonObject.getString("r_id"));
 
             } // for
@@ -82,7 +84,8 @@ public class BillFragment extends Fragment {
                     methodStringArrayList,
                     detailLine1StringArrayList,
                     detailLine2StringArrayList,
-                    detailLine3StringArrayList,new OnClickItem() {
+                    detailLine3StringArrayList,
+                    totalPriceStringArrayList,new OnClickItem() {
                 @Override
                 public void onClickItem(View view, int positions) {
                     Log.d("2decV2", "You Click ==> " + positions);
@@ -90,7 +93,12 @@ public class BillFragment extends Fragment {
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contentServiceFragment,
-                                    BillDetailFragment.billDetailInstance(idBillStringArrayList.get(positions)))
+                                    BillDetailFragment.billDetailInstance(idBillStringArrayList.get(positions),
+                                            channelStringArrayList.get(positions),
+                                            methodStringArrayList.get(positions),
+                                            detailLine1StringArrayList.get(positions),
+                                            detailLine2StringArrayList.get(positions),
+                                            detailLine3StringArrayList.get(positions)))
                             .addToBackStack(null)
                             .commit();
 

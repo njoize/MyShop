@@ -18,7 +18,8 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             methodStringArrayList,
             detailLine1StringArrayList,
             detailLine2StringArrayList,
-            detailLine3StringArrayList;
+            detailLine3StringArrayList,
+            totalPriceStringArrayList;
     private LayoutInflater layoutInflater;
     private OnClickItem onClickItem;
 
@@ -28,6 +29,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
                                    ArrayList<String> detailLine1StringArrayList,
                                    ArrayList<String> detailLine2StringArrayList,
                                    ArrayList<String> detailLine3StringArrayList,
+                                   ArrayList<String> totalPriceStringArrayList,
                                    OnClickItem onClickItem) {
         this.layoutInflater = LayoutInflater.from(context);
         this.channelStringArrayList = channelStringArrayList;
@@ -35,6 +37,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         this.detailLine1StringArrayList = detailLine1StringArrayList;
         this.detailLine2StringArrayList = detailLine2StringArrayList;
         this.detailLine3StringArrayList = detailLine3StringArrayList;
+        this.totalPriceStringArrayList = totalPriceStringArrayList;
         this.onClickItem = onClickItem;
     } // Constructor
 
@@ -56,12 +59,14 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         String detailLine1String = detailLine1StringArrayList.get(i);
         String detailLine2String = detailLine2StringArrayList.get(i);
         String detailLine3String = detailLine3StringArrayList.get(i);
+        String totalPriceString = totalPriceStringArrayList.get(i);
 
         billViewHolder.channelTextView.setText(channelString);
         billViewHolder.methodTextView.setText( methodString);
         billViewHolder.detailLine1TextView.setText(detailLine1String);
         billViewHolder.detailLine2TextView.setText(detailLine2String);
         billViewHolder.detailLine3TextView.setText(detailLine3String);
+        billViewHolder.totalPriceTextView.setText(totalPriceString);
 
         billViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +88,8 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
                 methodTextView,
                 detailLine1TextView,
                 detailLine2TextView,
-                detailLine3TextView;
+                detailLine3TextView,
+                totalPriceTextView;
 
 
         public BillViewHolder(@NonNull View itemView) {
@@ -94,6 +100,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             detailLine1TextView = itemView.findViewById(R.id.txtDetail1);
             detailLine2TextView = itemView.findViewById(R.id.txtDetail2);
             detailLine3TextView = itemView.findViewById(R.id.txtDetail3);
+            totalPriceTextView = itemView.findViewById(R.id.txtTotalPrice);
 
         }
     } // BillViewHolder Class

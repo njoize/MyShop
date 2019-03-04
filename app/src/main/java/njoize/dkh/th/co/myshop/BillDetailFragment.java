@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class BillDetailFragment extends Fragment {
 
-    private String idBillString;
+    private String idBillString, channelString, methodString, detail1String, detail2String, detail3String;
     private String tag = "BillDetailFragment";
     private MyConstant myConstant = new MyConstant();
 
@@ -31,11 +31,21 @@ public class BillDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static BillDetailFragment billDetailInstance(String idString) {
+    public static BillDetailFragment billDetailInstance(String idString,
+                                                        String channelString,
+                                                        String methodString,
+                                                        String detail1String,
+                                                        String detail2String,
+                                                        String detail3String) {
 
         BillDetailFragment billDetailFragment = new BillDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("idBill", idString);
+        bundle.putString("channel", channelString);
+        bundle.putString("method", methodString);
+        bundle.putString("detail1", detail1String);
+        bundle.putString("detail2", detail2String);
+        bundle.putString("detail3", detail3String);
         billDetailFragment.setArguments(bundle);
         return billDetailFragment;
     }
@@ -50,8 +60,20 @@ public class BillDetailFragment extends Fragment {
 //        Create Detail
         createDetail();
 
+//        Show Text
+        showText();
 
     } // Main Method
+
+    private void showText() {
+        TextView leftTextView = getView().findViewById(R.id.txtLeft);
+        TextView left2TextView = getView().findViewById(R.id.txtLeft2);
+        TextView rightTextView = getView().findViewById(R.id.txtRight);
+
+        leftTextView.setText(detail1String + "\n" + detail2String);
+        left2TextView.setText(detail3String);
+        rightTextView.setText(channelString + " " + methodString);
+    }
 
     private void createDetail() {
 
@@ -65,8 +87,8 @@ public class BillDetailFragment extends Fragment {
         ArrayList<String> weightStringArrayList = new ArrayList<>();
         ArrayList<String> amountStringArrayList = new ArrayList<>();
         ArrayList<String> priceStringArrayList = new ArrayList<>();
-        ArrayList<String>  discountStringArrayList = new ArrayList<>();
-        ArrayList<String>  sumStringArrayList = new ArrayList<>();
+        ArrayList<String> discountStringArrayList = new ArrayList<>();
+        ArrayList<String> sumStringArrayList = new ArrayList<>();
 
         try {
 
@@ -105,7 +127,15 @@ public class BillDetailFragment extends Fragment {
             }
 
             TextView textView = getView().findViewById(R.id.txtTotal);
-            textView.setText("รวมทั้งสิ้น " + Double.toString(total).format("%.2f", total) + " บาท");
+            textView.setText("รวมทั้งสิ้น " + Double.toString(total).format("%.2f", total));
+
+            double totalWeight = 0;
+            for (String s : weightStringArrayList) {
+                totalWeight = totalWeight + Double.parseDouble(s.trim());
+            }
+
+            TextView weightTextView = getView().findViewById(R.id.txtTotalWeight);
+            weightTextView.setText(Double.toString(totalWeight).format("%.2f", totalWeight) + " KG");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,6 +145,11 @@ public class BillDetailFragment extends Fragment {
 
     private void getRID() {
         idBillString = getArguments().getString("idBill");
+        channelString = getArguments().getString("channel");
+        methodString = getArguments().getString("method");
+        detail1String = getArguments().getString("detail1");
+        detail2String = getArguments().getString("detail2");
+        detail3String = getArguments().getString("detail3");
         Log.d(tag, "idBill ==> " + idBillString);
     }
 
