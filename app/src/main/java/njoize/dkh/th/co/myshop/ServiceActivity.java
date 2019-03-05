@@ -1,14 +1,18 @@
 package njoize.dkh.th.co.myshop;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +24,7 @@ public class ServiceActivity extends AppCompatActivity {
     private String nameString;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private boolean aBoolean = true; // True ==> Check Internet
 
 
     @Override
@@ -28,6 +33,10 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
+//        Check Internet
+        checkInternet();
+
+
 //        Get ValueLogin
         getValueLogin();
 
@@ -35,15 +44,41 @@ public class ServiceActivity extends AppCompatActivity {
         createToolbar();
 
 //        Add Fragment
+        addFragment(savedInstanceState);
+
+
+    } // Main Method
+
+    private void checkInternet() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (!(networkInfo != null && networkInfo.isConnected() && aBoolean)) {
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ServiceActivity.this);
+            alertDialogBuilder.setTitle("Internet Checking").setMessage("ไม่ได้เชื่อมต่ออินเทอร์เน็ต").setPositiveButton("ออกจากโปรแกรม", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            }).setNegativeButton("ยืนยันเข้าใช้งาน", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    aBoolean = false;
+                    dialog.dismiss();
+                }
+            }).show();
+
+        }
+    }
+
+    private void addFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.contentServiceFragment, new ServicesFragment())
                     .commit();
         }
-
-
-    } // Main Method
+    }
 
     @Override
     public void onBackPressed() {

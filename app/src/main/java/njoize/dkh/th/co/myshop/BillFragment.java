@@ -1,8 +1,11 @@
 package njoize.dkh.th.co.myshop;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +28,7 @@ public class BillFragment extends Fragment {
 
     private MyConstant myConstant = new MyConstant();
     private String tag = "BillFragment";
+    private int tabAnInt = 0;
 
 
     public BillFragment() {
@@ -35,15 +39,50 @@ public class BillFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        Check Status
-        checkStatus();
+//        Create TabLayout
+        createTabLayout();
+
 
 //        Create RecyclerView
-        createRecyclerView();
+        createRecyclerView(tabAnInt);
 
     } // Main Method
 
-    private void createRecyclerView() {
+    private void createTabLayout() {
+        TabLayout tabLayout = getView().findViewById(R.id.tabLayoutBill);
+        String[] strings = myConstant.getBillTitleStrings();
+        for (String s : strings) {
+            tabLayout.addTab(tabLayout.newTab().setText(s));
+        }
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabAnInt = tab.getPosition();
+                Log.d(tag, "tabAnInt ==> " + tabAnInt);
+                createRecyclerView(tabAnInt);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    } // createTabLayout
+
+    private void createRecyclerView(int tabPosition) {
+
+        SharedPreferences sharedPreferences = getActivity()
+                .getSharedPreferences(myConstant.getSharePreferFileUserLogin(), Context.MODE_PRIVATE);
+        String userLogined = sharedPreferences.getString("Username", "");
+
 
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerViewBill);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
@@ -61,7 +100,9 @@ public class BillFragment extends Fragment {
 
         try {
             ReadAllDataThread readAllDataThread = new ReadAllDataThread(getActivity());
-            readAllDataThread.execute(myConstant.getUrlGetAllReceipts());
+            readAllDataThread.execute(userLogined,
+                    Integer.toString(tabPosition),
+                    myConstant.getUrlGetAllReceipts());
             String jsonString = readAllDataThread.get();
             Log.d(tag, "jsonString ==> " + jsonString);
             JSONArray jsonArray = new JSONArray(jsonString);
@@ -109,17 +150,11 @@ public class BillFragment extends Fragment {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } // try
+
+
+
     } // createRecyclerView
-
-    private void checkStatus() {
-        TextView title0TextView = getView().findViewById(R.id.txtTitle0);
-        TextView title1TextView = getView().findViewById(R.id.txtTitle1);
-
-        String[] strings = myConstant.getBillTitleStrings();
-        title0TextView.setText(strings[0]);
-        title1TextView.setText(strings[1]);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
