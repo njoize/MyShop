@@ -9,13 +9,19 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.zj.wfsdk.WifiCommunication;
 
 public class ServiceActivity extends AppCompatActivity {
 
@@ -25,6 +31,7 @@ public class ServiceActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean aBoolean = true; // True ==> Check Internet
+    private WifiCommunication wifiCommunication;
 
 
     @Override
@@ -36,6 +43,8 @@ public class ServiceActivity extends AppCompatActivity {
 //        Check Internet
         checkInternet();
 
+//        Check Printer
+        checkPrinter();
 
 //        Get ValueLogin
         getValueLogin();
@@ -48,6 +57,33 @@ public class ServiceActivity extends AppCompatActivity {
 
 
     } // Main Method
+
+    private void checkPrinter() {
+
+        MyConstant myConstant = new MyConstant();
+        WifiCommunication wifiCommunication = new WifiCommunication(handler);
+        wifiCommunication.initSocket(myConstant.getIpAddressPrinter(), myConstant.getPortPrinter());
+
+
+    }
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.what == WifiCommunication.WFPRINTER_CONNECTED) {
+                Log.d("ServiceActivity", "Printer Connected");
+//                Toast.makeText(ServiceActivity.this, "เชื่อมต่อปริ้นเตอร์สำเร็จ", Toast.LENGTH_SHORT).show();
+                wifiCommunication.close();
+            } else {
+                Log.d("ServiceActivity", "Printer Cannot Connected");
+                Toast.makeText(ServiceActivity.this, "เชื่อมต่อปริ้นเตอร์ไม่สำเร็จ", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    };
 
     private void checkInternet() {
 
