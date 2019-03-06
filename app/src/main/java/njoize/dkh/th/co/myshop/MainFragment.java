@@ -42,6 +42,12 @@ public class MainFragment extends Fragment {
         createCommunicationPrinter();
 
 //        Print Controller
+        printController();
+
+
+    } // Main Method
+
+    private void printController() {
         button = getView().findViewById(R.id.btnPrint);
         printAgainButton = getView().findViewById(R.id.btnPrintAgain);
         printAgainButton.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +57,7 @@ public class MainFragment extends Fragment {
                 communicationABoolean = true;
             }
         });
-
-
-    } // Main Method
+    }
 
     private void createCommunicationPrinter() {
         wifiCommunication = new WifiCommunication(handler);

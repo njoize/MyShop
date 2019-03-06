@@ -2,6 +2,7 @@ package njoize.dkh.th.co.myshop;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -126,22 +127,25 @@ public class BillFragment extends Fragment {
                     detailLine1StringArrayList,
                     detailLine2StringArrayList,
                     detailLine3StringArrayList,
-                    totalPriceStringArrayList,new OnClickItem() {
+                    totalPriceStringArrayList, new OnClickItem() {
                 @Override
                 public void onClickItem(View view, int positions) {
                     Log.d("2decV2", "You Click ==> " + positions);
 
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.contentServiceFragment,
-                                    BillDetailFragment.billDetailInstance(idBillStringArrayList.get(positions),
-                                            channelStringArrayList.get(positions),
-                                            methodStringArrayList.get(positions),
-                                            detailLine1StringArrayList.get(positions),
-                                            detailLine2StringArrayList.get(positions),
-                                            detailLine3StringArrayList.get(positions)))
-                            .addToBackStack(null)
-                            .commit();
+                    Intent intent = new Intent(getActivity(), BillDetailActivity.class);
+                    MyConstant myConstant = new MyConstant();
+                    String[] strings = myConstant.getBillDetailStrings();
+
+                    intent.putExtra(strings[0], idBillStringArrayList.get(positions));
+                    intent.putExtra(strings[1], channelStringArrayList.get(positions));
+                    intent.putExtra(strings[2], methodStringArrayList.get(positions));
+                    intent.putExtra(strings[3], detailLine1StringArrayList.get(positions));
+                    intent.putExtra(strings[4], detailLine2StringArrayList.get(positions));
+                    intent.putExtra(strings[5], detailLine3StringArrayList.get(positions));
+
+                    startActivity(intent);
+
+
 
                 }
             });
@@ -151,7 +155,6 @@ public class BillFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         } // try
-
 
 
     } // createRecyclerView
