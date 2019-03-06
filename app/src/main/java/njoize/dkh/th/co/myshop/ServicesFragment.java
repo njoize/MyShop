@@ -49,6 +49,7 @@ public class ServicesFragment extends Fragment {
 
         viewPager.setCurrentItem(3); // Start Pager No.3
 
+
     }
 
     private void createTabLayout() {
