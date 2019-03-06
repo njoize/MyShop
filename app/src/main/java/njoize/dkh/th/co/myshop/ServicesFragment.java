@@ -47,6 +47,8 @@ public class ServicesFragment extends Fragment {
         viewPager.setAdapter(myPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        viewPager.setCurrentItem(3); // Start Pager No.3
+
     }
 
     private void createTabLayout() {
