@@ -15,13 +15,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.zj.wfsdk.WifiCommunication;
+
+import java.util.ArrayList;
 
 public class ServiceActivity extends AppCompatActivity {
 
@@ -55,8 +60,72 @@ public class ServiceActivity extends AppCompatActivity {
 //        Add Fragment
         addFragment(savedInstanceState);
 
+//        Create DrawerMenu
+        createDrawerMenu();
+
 
     } // Main Method
+
+    private void createDrawerMenu() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerDrawerMenu);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ServiceActivity.this,
+                LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        MyConstant myConstant = new MyConstant();
+        int[] ints = myConstant.getIconDrawerInts();
+        String[] strings = myConstant.getTitleDrawerStrings();
+
+        ArrayList<Integer> integerArrayList = new ArrayList<>();
+        ArrayList<String> stringArrayList = new ArrayList<>();
+
+        for (int i = 0; i < strings.length; i += 1) {
+            integerArrayList.add(ints[i]);
+            stringArrayList.add(strings[i]);
+        }
+
+        DrawerMenuAdapter drawerMenuAdapter = new DrawerMenuAdapter(ServiceActivity.this,
+                integerArrayList, stringArrayList, new OnClickItem() {
+            @Override
+            public void onClickItem(View view, int positions) {
+                Log.d("ServiceActivity", "You Click menu ==> " + positions);
+                activeClick(positions);
+                drawerLayout.closeDrawers();
+            }
+        });
+        recyclerView.setAdapter(drawerMenuAdapter);
+
+    }
+
+    private void activeClick(int positions) {
+
+        switch (positions) {
+            case 0:
+//                Profile
+
+                break;
+            case 1:
+//                Sign Out
+                MyConstant myConstant = new MyConstant();
+                SharedPreferences sharedPreferences = getSharedPreferences(myConstant.getSharePreferFileUserLogin(), MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Username", "");
+                editor.putString("Firstname", "");
+                editor.putString("Name", "");
+                editor.putString("UserCat", "");
+                editor.putBoolean("Remember", false);
+                editor.putString("JSON", "");
+                editor.commit();
+
+                startActivity(new Intent(ServiceActivity.this, MainActivity.class));
+                finish();
+
+
+//                finish(); // Close App
+                break;
+        }
+
+    }
 
     private void checkPrinter() {
 

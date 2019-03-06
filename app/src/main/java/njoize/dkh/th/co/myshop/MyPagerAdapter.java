@@ -26,6 +26,9 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
                 MemberFragment memberFragment = new MemberFragment();
                 return memberFragment;
             case 2:
+                StockFragment stockFragment = new StockFragment();
+                return stockFragment;
+            case 3:
                 ProductFragment productFragment = new ProductFragment();
                 return productFragment;
             default:
