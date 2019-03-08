@@ -1,8 +1,10 @@
 package njoize.dkh.th.co.myshop;
 
 import android.content.Context;
+import android.support.annotation.LongDef;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +67,24 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Bi
         String discountString = discountStringArrayList.get(i);
         String sumString = sumStringArrayList.get(i);
 
-        billDetailViewHolder.nameTextView.setText(nameString);
-        billDetailViewHolder.pdetailTextView.setText(pdetailString);
-        billDetailViewHolder.rdetailTextView.setText(rdetailString);
+        if (nameString != null && !nameString.isEmpty() && !nameString.equals("null")) {
+            billDetailViewHolder.nameTextView.setText(nameString);
+        } else {
+            billDetailViewHolder.nameTextView.setVisibility(View.GONE);
+        }
+
+        if (pdetailString != null && !pdetailString.isEmpty() && !pdetailString.equals("null")) {
+            billDetailViewHolder.pdetailTextView.setText(pdetailString);
+        } else {
+            billDetailViewHolder.pdetailTextView.setVisibility(View.GONE);
+        }
+
+        if (rdetailString != null && !rdetailString.isEmpty() && !rdetailString.equals("null")) {
+            billDetailViewHolder.rdetailTextView.setText(rdetailString);
+        } else {
+            billDetailViewHolder.rdetailTextView.setVisibility(View.GONE);
+        }
+
         billDetailViewHolder.weightTextView.setText(weightString);
         billDetailViewHolder.amountTextView.setText(amountString);
         billDetailViewHolder.priceTextView.setText(priceString);

@@ -16,7 +16,11 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -68,6 +72,7 @@ public class BillDetailFragment extends Fragment {
         showText();
 
     } // Main Method
+
 
     private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toolbarBillDetail);
@@ -139,21 +144,28 @@ public class BillDetailFragment extends Fragment {
                     sumStringArrayList);
             recyclerView.setAdapter(billDetailAdapter);
 
+
             double total = 0;
             for (String s : sumStringArrayList) {
-                total = total + Double.parseDouble(s.trim());
+                total = total + Double.parseDouble(s.replace(",", ""));
             }
 
+//            Currency Format
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+            symbols.setCurrencySymbol(""); // Don't use null.
+            formatter.setDecimalFormatSymbols(symbols);
+
             TextView textView = getView().findViewById(R.id.txtTotal);
-            textView.setText("รวมทั้งสิ้น " + Double.toString(total).format("%.2f", total));
+            textView.setText("รวมทั้งสิ้น " + formatter.format(total));
 
             double totalWeight = 0;
             for (String s : weightStringArrayList) {
-                totalWeight = totalWeight + Double.parseDouble(s.trim());
+                totalWeight = totalWeight + Double.parseDouble(s.replace(",", ""));
             }
 
             TextView weightTextView = getView().findViewById(R.id.txtTotalWeight);
-            weightTextView.setText(Double.toString(totalWeight).format("%.2f", totalWeight) + " KG");
+            weightTextView.setText(formatter.format(totalWeight) + " KG");
 
         } catch (Exception e) {
             e.printStackTrace();

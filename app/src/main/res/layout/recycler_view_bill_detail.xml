@@ -19,6 +19,7 @@
             android:textSize="@dimen/h3"
             android:textStyle="bold" />
 
+
         <TextView
             android:id="@+id/txtPDetail"
             android:layout_width="wrap_content"
@@ -28,9 +29,11 @@
             android:textStyle="italic" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/txtRDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="RDetail"
             android:textSize="@dimen/h3"/>
 
         <TextView

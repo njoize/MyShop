@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerViewAdapter.BillViewHolder> {
 
-    public Context context;
+    private Context context;
     private ArrayList<String>
             channelStringArrayList,
             methodStringArrayList,
@@ -24,26 +24,15 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
     private LayoutInflater layoutInflater;
     private OnClickItem onClickItem;
 
-//    private int[] ints = new int[]{R.drawable.channel0,
-//            R.drawable.channel1,
-//            R.drawable.channel2,
-//            R.drawable.channel3,
-//            R.drawable.channel4,
-//            R.drawable.channel5,
-//            R.drawable.channel6,
-//            R.drawable.channel7,
-//            R.drawable.channel8};
-
-    private int[] ints = new int[]{R.drawable.ic_action_hamberger,
-            R.drawable.ic_action_product,
-            R.drawable.ic_action_member,
-            R.drawable.ic_action_bill,
-            R.drawable.ic_action_profile,
-            R.drawable.ic_action_alert,
-            R.drawable.ic_action_arrow,
-            R.drawable.ic_action_product,
-            R.drawable.ic_action_member};
-
+    private int[] ints = new int[]{R.drawable.channal_0,
+            R.drawable.channal_1,
+            R.drawable.channal_2,
+            R.drawable.channal_3,
+            R.drawable.channal_4,
+            R.drawable.channal_5,
+            R.drawable.channal_6,
+            R.drawable.channal_7,
+            R.drawable.channal_8};
 
 
     public BillRecyclerViewAdapter(Context context,
@@ -89,50 +78,60 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         billViewHolder.methodTextView.setText(methodString);
         billViewHolder.detailLine1TextView.setText(detailLine1String);
         billViewHolder.detailLine2TextView.setText(detailLine2String);
-        billViewHolder.detailLine3TextView.setText(detailLine3String);
+
+        if (detailLine3String != null && !detailLine3String.isEmpty() && !detailLine3String.equals("null")) {
+            billViewHolder.detailLine3TextView.setText(detailLine3String);
+        } else {
+            billViewHolder.detailLine3TextView.setVisibility(View.GONE);
+        }
+
+
+
         billViewHolder.totalPriceTextView.setText(totalPriceString);
         billViewHolder.imageView.setImageResource(ints[index]);
 
 
-        billViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickItem.onClickItem(v, billViewHolder.getAdapterPosition());
-            }
-        });
+        billViewHolder.itemView.setOnClickListener(new View.OnClickListener()
 
+    {
+        @Override
+        public void onClick (View v){
+        onClickItem.onClickItem(v, billViewHolder.getAdapterPosition());
     }
+    });
+
+}
 
     @Override
     public int getItemCount() {
         return detailLine1StringArrayList.size();
     }
 
-    public class BillViewHolder extends RecyclerView.ViewHolder {
+public class BillViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView channelTextView,
-                methodTextView,
-                detailLine1TextView,
-                detailLine2TextView,
-                detailLine3TextView,
-                totalPriceTextView;
+    private TextView channelTextView,
+            methodTextView,
+            detailLine1TextView,
+            detailLine2TextView,
+            detailLine3TextView,
+            totalPriceTextView;
 
-        private ImageView imageView;
+    private ImageView imageView;
 
 
-        public BillViewHolder(@NonNull View itemView) {
-            super(itemView);
+    public BillViewHolder(@NonNull View itemView) {
+        super(itemView);
 
-            channelTextView = itemView.findViewById(R.id.txtChannel);
-            methodTextView = itemView.findViewById(R.id.txtMethod);
-            detailLine1TextView = itemView.findViewById(R.id.txtDetail1);
-            detailLine2TextView = itemView.findViewById(R.id.txtDetail2);
-            detailLine3TextView = itemView.findViewById(R.id.txtDetail3);
-            totalPriceTextView = itemView.findViewById(R.id.txtTotalPrice);
-            imageView = itemView.findViewById(R.id.imvChannel);
+        channelTextView = itemView.findViewById(R.id.txtChannel);
+        methodTextView = itemView.findViewById(R.id.txtMethod);
+        detailLine1TextView = itemView.findViewById(R.id.txtDetail1);
+        detailLine2TextView = itemView.findViewById(R.id.txtDetail2);
+        detailLine3TextView = itemView.findViewById(R.id.txtDetail3);
+        totalPriceTextView = itemView.findViewById(R.id.txtTotalPrice);
+        imageView = itemView.findViewById(R.id.imvChannel);
 
-        }
-    } // BillViewHolder Class
+    }
+} // BillViewHolder Class
 
 
 } // Main Class
