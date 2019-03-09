@@ -27,6 +27,8 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
     ArrayList<NameMemberModel> nameMemberModelArrayList = new ArrayList<NameMemberModel>();
     private SearchView searchView;
     private MemberListViewAdapter memberListViewAdapter;
+//    private ArrayList<String> detailMemberStringArrayList;
+    private ArrayList<String> idStringArrayList;
 
 
     public MemberFragment() {
@@ -39,6 +41,8 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
 
         myConstant = new MyConstant();
         nameMemberStringArrayList = new ArrayList<>();
+//        detailMemberStringArrayList = new ArrayList<>();
+        idStringArrayList = new ArrayList<>();
 
 //        Create RecyclerView
         createRecyclerView();
@@ -56,7 +60,17 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
             JSONArray jsonArray = new JSONArray(json);
             for (int i = 0; i < jsonArray.length(); i += 1) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                nameMemberStringArrayList.add(jsonObject.getString("cu_name"));
+                nameMemberStringArrayList.add(jsonObject.getString("cu_code") + "   "
+                        + jsonObject.getString("cu_tel") + "\n"
+                        + jsonObject.getString("cu_name"));
+//                detailMemberStringArrayList.add(jsonObject.getString("cu_code") + "\n"
+//                        + jsonObject.getString("cu_tax") + " "
+//                        + jsonObject.getString("cu_name") + "\n"
+//                        + jsonObject.getString("cu_address") + "\n"
+//                        + jsonObject.getString("cu_contact") + "\n"
+//                        + jsonObject.getString("cu_tel"));
+                idStringArrayList.add(jsonObject.getString("cu_id"));
+
             }
             Log.d("MemberFragment", "nameMember ==> " + nameMemberStringArrayList.toString());
 
