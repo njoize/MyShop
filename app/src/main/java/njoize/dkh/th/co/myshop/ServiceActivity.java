@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -45,6 +46,11 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
+//        Huawei Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
 //        Check Internet
         checkInternet();
 
@@ -65,6 +71,40 @@ public class ServiceActivity extends AppCompatActivity {
 
 
     } // Main Method
+
+    private void openCashDrawer() {
+        MyConstant myConstant = new MyConstant();
+        wifiCommunication = new WifiCommunication(ocHandler);
+        wifiCommunication.initSocket(myConstant.getIpAddressPrinter(), myConstant.getPortPrinter());
+    }
+
+    private final Handler ocHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+
+                case WifiCommunication.WFPRINTER_CONNECTED:
+
+
+                    wifiCommunication.sndByte(Command.openCashDrawer);
+                    wifiCommunication.close();
+
+                    Log.d("1MayV1", "Connected Printer");
+
+                    break;
+                case WifiCommunication.WFPRINTER_DISCONNECTED:
+
+                    Log.d("1MayV1", "Disconnected Printer");
+                    break;
+                default:
+                    break;
+
+            } // switch
+        } // handleMessage
+    };
 
     private void createDrawerMenu() {
         RecyclerView recyclerView = findViewById(R.id.recyclerDrawerMenu);
@@ -104,7 +144,15 @@ public class ServiceActivity extends AppCompatActivity {
 //                Profile
 
                 break;
+
             case 1:
+
+//                Open CashDrawer
+                openCashDrawer();
+
+                break;
+
+            case 2:
 //                Sign Out
                 MyConstant myConstant = new MyConstant();
                 SharedPreferences sharedPreferences = getSharedPreferences(myConstant.getSharePreferFileUserLogin(), MODE_PRIVATE);
@@ -145,7 +193,7 @@ public class ServiceActivity extends AppCompatActivity {
             if (msg.what == WifiCommunication.WFPRINTER_CONNECTED) {
                 Log.d("ServiceActivity", "Printer Connected");
 //                Toast.makeText(ServiceActivity.this, "เชื่อมต่อปริ้นเตอร์สำเร็จ", Toast.LENGTH_SHORT).show();
-                wifiCommunication.close();
+//                wifiCommunication.close();
             } else {
                 Log.d("ServiceActivity", "Printer Cannot Connected");
                 Toast.makeText(ServiceActivity.this, "เชื่อมต่อปริ้นเตอร์ไม่สำเร็จ", Toast.LENGTH_LONG).show();

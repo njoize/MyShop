@@ -126,6 +126,6 @@
         android:layout_marginLeft="48dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dddddd" />
+        android:background="@color/colorLine" />
 
 </LinearLayout>

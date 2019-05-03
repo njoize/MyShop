@@ -29,7 +29,7 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
                 StockFragment stockFragment = new StockFragment();
                 return stockFragment;
             case 3:
-                ProductFragment productFragment = new ProductFragment();
+                ProductFragment productFragment = ProductFragment.productInstante("");
                 return productFragment;
             default:
                 return null;

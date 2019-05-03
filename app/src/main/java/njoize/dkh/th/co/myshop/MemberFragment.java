@@ -86,6 +86,15 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
 
             listView.setAdapter(memberListViewAdapter);
 
+
+            
+            getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchView.setIconified(false);
+                }
+            });
+
             searchView = getView().findViewById(R.id.searchViewMember);
             searchView.setOnQueryTextListener(this);
 
