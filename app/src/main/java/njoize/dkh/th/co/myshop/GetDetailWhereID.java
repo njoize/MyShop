@@ -9,11 +9,11 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-public class GetBillDetail extends AsyncTask<String, Void, String> {
+public class GetDetailWhereID extends AsyncTask<String, Void, String> {
 
     private Context context;
 
-    public GetBillDetail(Context context) {
+    public GetDetailWhereID(Context context) {
         this.context = context;
     }
 
@@ -25,7 +25,7 @@ public class GetBillDetail extends AsyncTask<String, Void, String> {
             OkHttpClient okHttpClient = new OkHttpClient();
             RequestBody requestBody = new FormEncodingBuilder()
                     .add("isAdd", "true")
-                    .add("r_id", strings[0])
+                    .add("id", strings[0])
                     .build();
             Request.Builder builder = new Request.Builder();
             Request request = builder.url(strings[1]).post(requestBody).build();

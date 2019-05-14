@@ -115,7 +115,7 @@ public class BillDetailFragment extends Fragment {
 
         try {
 
-            GetBillDetail getBillDetail = new GetBillDetail(getActivity());
+            GetDetailWhereID getBillDetail = new GetDetailWhereID(getActivity());
             getBillDetail.execute(idBillString, myConstant.getUrlGetReceiptsDetail());
             String jsonString = getBillDetail.get();
             Log.d(tag, jsonString);
