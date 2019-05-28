@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:height="1dp"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fefeef"
+        android:orientation="horizontal">
+
+        <!--NameFood-->
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/txtNameProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="NameFood"
+            android:textSize="@dimen/h3" />
+
+        <!--<TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.01"
+            android:background="#ffffff"
+            android:textSize="@dimen/h2" />-->
+
+
+        <!--Quantity-->
+        <TextView
+            android:id="@+id/txtQuantity"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="20"
+            android:textSize="@dimen/h3" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/imvDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_decrease" />
+
+        <!--Amount-->
+        <TextView
+            android:id="@+id/txtAmount"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="10"
+            android:textSize="@dimen/h3" />
+
+        <ImageView
+            android:id="@+id/imvIncrease"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_increase" />
+
+        <!--<TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.01"
+            android:background="#ffffff"
+            android:textSize="@dimen/h2" />-->
+
+        <!--Price-->
+
+        <TextView
+            android:layout_marginRight="5dp"
+            android:gravity="right"
+            android:id="@+id/txtPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="888"
+            android:textSize="@dimen/h3" />
+    </LinearLayout>
+
+</LinearLayout>
