@@ -16,53 +16,11 @@
         <LinearLayout
             android:id="@+id/layoutHead"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:orientation="vertical"
-            android:background="#cfcfcf"
-            android:paddingTop="5dp">
+            android:background="#efefef"
+            android:paddingTop="0dp">
 
-            <!--Status-->
-            <LinearLayout
-                android:layout_marginHorizontal="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp">
-
-                <!--Desk-->
-                <TextView
-                    android:id="@+id/txtDesk"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="text" />
-
-                <!--Zone-->
-                <TextView
-                    android:id="@+id/txtZone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="text" />
-
-                <!--AmountUser-->
-                <TextView
-                    android:id="@+id/txtAmountUser"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="text" />
-
-                <!--Total Bill-->
-                <TextView
-                    android:gravity="right"
-                    android:id="@+id/txtTotalBill"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="text" />
-
-            </LinearLayout>
 
             <!--Title Column-->
             <LinearLayout

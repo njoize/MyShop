@@ -1,7 +1,9 @@
 package njoize.dkh.th.co.myshop;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -68,7 +70,92 @@ public class ProductFragment extends Fragment {
 //        Check Order
         checkOrder();
 
+//        Cancel Controller
+        cancelController();
+
+//        Order Controller
+        orderController();
     } // Main Method
+
+    private void orderController() {
+        Button button = getView().findViewById(R.id.btnOrder);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("ยืนยันรายการสั่งซื้อ").setMessage("คุณต้องการทำรายการสั่งซื้อ แน่ใจหรือไม่ ?").setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase(MyOpenHelper.database_name, Context.MODE_PRIVATE, null);
+                        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM orderTable", null);
+                        cursor.moveToFirst();
+
+                        for (int i = 0; i < cursor.getCount(); i += 1) {
+
+                            String idPricelist = cursor.getString(1);
+                            String price = cursor.getString(3);
+                            String quantity = cursor.getString(4);
+                            String amount = cursor.getString(5);
+
+                            Log.d(tag + " - Order", "pid[" + i + "] = " + idPricelist);
+                            Log.d(tag, "price[" + i + "] = " + price);
+                            Log.d(tag, "amount[" + i + "] = " + amount);
+
+//                            Upload to Server
+                            /*try {
+
+                                OrderThread orderThread = new OrderThread(getActivity());
+                                orderThread.execute(user, numcus, billtype, tid, pid, price, amount, myConstant.getUrlAddOrder());
+
+                                emptySQLite();
+
+
+                                GetUserWhereName getUserWhereName = new GetUserWhereName(getActivity());
+
+                                getUserWhereName.execute(user, myConstant.getUrlGetOrderWhereUser());
+                                String resultJSoN = getUserWhereName.get();
+                                Log.d("10marV1", "resultJSoN ==> " + resultJSoN);
+
+                                JSONArray jsonArray = new JSONArray(resultJSoN);
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+//
+//
+                                Intent intent = new Intent(getActivity(), BillDetailActivity.class); // go to BillDetailActivity
+//                                intent.putExtra("Login", resultJSoN);
+////                                intent.putExtra("Status", true);
+////                                intent.putExtra("mid", idString);
+////                                Log.d("28FebV1", "mid adapter ==> " + idString);
+//
+//
+                                intent.putExtra("idBill", jsonObject.getString("id"));
+
+
+
+                                startActivity(intent);
+                                getActivity().finish();
+
+
+                            } catch (Exception e) {
+                                Log.d(tag, "e upload ==> " + e.toString());
+                            }*/
+
+                            cursor.moveToNext();
+                        }
+
+
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+
+            }
+        });
+    }
 
     private boolean checkHaveProduct(String idProductString) {
 
@@ -106,7 +193,19 @@ public class ProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                emptySQLite();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("ลบรายการสั่งซื้อ").setMessage("คุณต้องการทำลบรายการสั่งซื้อ แน่ใจหรือไม่ ?").setPositiveButton("ลบทิ้งเลย", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        emptySQLite();
+
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
 
             }
         });
@@ -310,7 +409,7 @@ public class ProductFragment extends Fragment {
             for (int i = 0; i < jsonArray.length(); i += 1) {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                productStringArrayList.add(jsonObject.getString("p_name"));
+                productStringArrayList.add(jsonObject.getString("p_shortname"));
                 productDetailStringArrayList.add(jsonObject.getString("p_detail"));
                 priceStringArrayList.add(jsonObject.getString("price"));
                 quantityStringArrayList.add(jsonObject.getString("pl_quantity"));
