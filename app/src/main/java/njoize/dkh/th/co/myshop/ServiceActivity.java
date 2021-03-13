@@ -92,12 +92,12 @@ public class ServiceActivity extends AppCompatActivity {
                     wifiCommunication.sndByte(Command.openCashDrawer);
                     wifiCommunication.close();
 
-                    Log.d("1MayV1", "Connected Printer");
+                    Log.d("ServiceActivity", "Connected Printer");
 
                     break;
                 case WifiCommunication.WFPRINTER_DISCONNECTED:
 
-                    Log.d("1MayV1", "Disconnected Printer");
+                    Log.d("ServiceActivity", "Disconnected Printer");
                     break;
                 default:
                     break;
@@ -147,12 +147,19 @@ public class ServiceActivity extends AppCompatActivity {
 
             case 1:
 
+//                Test Print
+                startActivity(new Intent(ServiceActivity.this, TestPrintActivity.class));
+
+                break;
+
+            case 2:
+
 //                Open CashDrawer
                 openCashDrawer();
 
                 break;
 
-            case 2:
+            case 3:
 //                Sign Out
                 MyConstant myConstant = new MyConstant();
                 SharedPreferences sharedPreferences = getSharedPreferences(myConstant.getSharePreferFileUserLogin(), MODE_PRIVATE);
