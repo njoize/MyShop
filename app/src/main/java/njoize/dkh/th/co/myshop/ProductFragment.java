@@ -75,6 +75,9 @@ public class ProductFragment extends Fragment {
 
 //        Order Controller
         orderController();
+
+
+
     } // Main Method
 
     private void orderController() {
